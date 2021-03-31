@@ -25,12 +25,6 @@
             android:exported="true"
             android:readPermission="edu.fsu.cs.mobile.permission.READ_PERMISSION"
             android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION"/>
-        <provider
-            android:name="edu.fsu.cs.mobile.watchnext.WatchlistContentProvider"
-            android:authorities="@string/authority"
-            android:exported="true"
-            android:readPermission="edu.fsu.cs.mobile.permission.READ_PERMISSION"
-            android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION"/>
     </application>
 
 </manifest>
