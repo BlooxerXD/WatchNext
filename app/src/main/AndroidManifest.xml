@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.watchnextmobile">
+    package="edu.fsu.cs.mobile.watchnext">
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="edu.fsu.cs.mobile.watchnext.MovieContentProvider"
+            android:authorities="@string/authority"
+            android:exported="true"
+            android:readPermission="edu.fsu.cs.mobile.permission.READ_PERMISSION"
+            android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION"/>
+        <provider
+            android:name="edu.fsu.cs.mobile.watchnext.WatchlistContentProvider"
+            android:authorities="@string/authority"
+            android:exported="true"
+            android:readPermission="edu.fsu.cs.mobile.permission.READ_PERMISSION"
+            android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION"/>
     </application>
 
 </manifest>
