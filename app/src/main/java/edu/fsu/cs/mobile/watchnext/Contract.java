@@ -8,7 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.CursorAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Contract {
+
+    public Contract(){
+
+    }
     Cursor mCursor;
     CursorAdapter mCursorAdapter;
 
@@ -60,10 +66,40 @@ public class Contract {
         return false;
     }
 
-    public String[] getWatchlistNames(Context context){
-        String [] array = new String[]{"List1","List2","List3"};
+    public ArrayList<String> getWatchlistNames(Context context){
+        ArrayList<String> array = new ArrayList<String>();
+
+        mProjection = new String[]{
+                WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME
+        };
+
+
+        mCursor = context.getContentResolver().query(
+                WatchlistContentProvider.CONTENT_URI,
+                mProjection,
+                null,
+                null,
+                null);
+        while(!mCursor.isAfterLast()){
+            array.add(mCursor.getString(mCursor.getColumnIndex(WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME))); //add the item
+            mCursor.moveToNext();
+
+        }
 
         return array;
+    }
+
+    public boolean deleteWatchList(Context context, String watchlist_name){
+
+        if(watchlistnameExist(context, watchlist_name)) {
+            mSelectionClause = WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME + " = ? ";
+            mSelectionArgs = new String[]{watchlist_name};
+            context.getContentResolver().delete(WatchlistContentProvider.CONTENT_URI, mSelectionClause, mSelectionArgs);
+            Toast.makeText(context, "Watchlist Deleted!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        Toast.makeText(context, "Watchlist Delete Failed!", Toast.LENGTH_SHORT).show();
+        return false;
     }
 
     protected static final class MainDatabaseHelper extends SQLiteOpenHelper {
