@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.CursorAdapter;
 import android.widget.Toast;
 
-public class WatchlistContract {
+public class Contract {
     Cursor mCursor;
     CursorAdapter mCursorAdapter;
 

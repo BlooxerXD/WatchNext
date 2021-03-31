@@ -2,14 +2,9 @@ package edu.fsu.cs.mobile.watchnext;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.widget.CursorAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +21,7 @@ public class WatchlistContentProvider extends ContentProvider {
 
     private static UriMatcher sUriMatcher;
 
-    private WatchlistContract.MainDatabaseHelper mOpenHelper;
+    private Contract.MainDatabaseHelper mOpenHelper;
 
     public static final String SQL_CREATE_WATCHLIST= "CREATE TABLE " +
             TABLE_WATCHLIST +  // Table's name
@@ -36,7 +31,7 @@ public class WatchlistContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new WatchlistContract.MainDatabaseHelper(getContext());
+        mOpenHelper = new Contract.MainDatabaseHelper(getContext());
         return true;
     }
 

@@ -2,11 +2,8 @@ package edu.fsu.cs.mobile.watchnext;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -36,7 +33,7 @@ public class MovieContentProvider extends ContentProvider {
 
     private static UriMatcher sUriMatcher;
 
-    private MyContentProvider.MainDatabaseHelper mOpenHelper;
+    private Contract.MainDatabaseHelper mOpenHelper;
 
     private static final String SQL_CREATE_MOVIE = "CREATE TABLE " +
             TABLE_MOVIE +
@@ -53,7 +50,7 @@ public class MovieContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new MyContentProvider.MainDatabaseHelper(getContext());
+        mOpenHelper = new Contract.MainDatabaseHelper(getContext());
         return true;
     }
 
@@ -89,19 +86,4 @@ public class MovieContentProvider extends ContentProvider {
         return mOpenHelper.getWritableDatabase().update(TABLE_MOVIE, values, selection, selectionArgs);
     }
 
-    protected static final class MainDatabaseHelper extends SQLiteOpenHelper {
-        MainDatabaseHelper(Context context) {
-            super(context, DBNAME, null, 1);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(SQL_CREATE_MOVIE);
-
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-        }
-    }
 }
