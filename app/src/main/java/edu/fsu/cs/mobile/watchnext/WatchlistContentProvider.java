@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.widget.CursorAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,14 @@ public class WatchlistContentProvider extends ContentProvider {
     public static final String AUTHORITY = "edu.fsu.cs.mobile.provider";
     public static final Uri CONTENT_URI = Uri.parse("content://edu.fsu.cs.mobile.provider/" + TABLE_WATCHLIST);
 
+    Cursor mCursor;
+    CursorAdapter mCursorAdapter;
+
+    String[] mProjection;
+    String[] mListColumns;
+    String mSelectionClause;
+    String[] mSelectionArgs;
+    String mOrderBy;
 
     private static UriMatcher sUriMatcher;
 
@@ -29,12 +39,50 @@ public class WatchlistContentProvider extends ContentProvider {
     private static final String SQL_CREATE_WATCHLIST= "CREATE TABLE " +
             TABLE_WATCHLIST +  // Table's name
             "(" +               // The columns in the table
-            " _ID INTEGER PRIMARY KEY, " +
-            TW_COLUMN_WATCHLISTID + " TEXT," +
+            TW_COLUMN_WATCHLISTID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             TW_COLUMN_WATCHLISTNAME + " TEXT)";
 
+    public boolean watchlistnameExist(Context context, String watchlist_name){
+        mProjection = new String[]{
+                WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME
+        };
 
 
+        mSelectionClause = WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME +" = ? ";
+        mSelectionArgs = new String[] { watchlist_name };
+
+        mCursor = context.getContentResolver().query(
+                WatchlistContentProvider.CONTENT_URI,
+                mProjection,
+                mSelectionClause,
+                mSelectionArgs,
+                null);
+
+
+        return mCursor.getCount() != 0;
+
+    }
+
+    private String CleanString(String str){
+        return str.trim();
+    }
+
+    public boolean addNewWatchlist(Context context, String watchlist_name){
+        if(!watchlistnameExist(context, watchlist_name)){
+            ContentValues values = new ContentValues();
+            values.put(WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME, CleanString(watchlist_name));
+            context.getContentResolver().insert(WatchlistContentProvider.CONTENT_URI, values);
+            Toast.makeText(context, "Watchlist Added!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        Toast.makeText(context, "Watchlist Added Fail!", Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    public String[] getWatchlistNames(Context context){
+        String [] array = new String[]{"List1","List2","List3"};
+        return array;
+    }
 
     @Override
     public boolean onCreate() {
