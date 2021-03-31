@@ -24,6 +24,10 @@ public class Contract {
     String[] mSelectionArgs;
     String mOrderBy;
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////// WATCHLIST SECTION
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     public boolean watchlistnameExist(Context context, String watchlist_name){
         mProjection = new String[]{
                 WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME
@@ -102,6 +106,13 @@ public class Contract {
         return false;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////// MOVIE/TV SECTION
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
     protected static final class MainDatabaseHelper extends SQLiteOpenHelper {
         MainDatabaseHelper(Context context) {
             super(context, WatchlistContentProvider.DBNAME, null, 1);
@@ -109,6 +120,7 @@ public class Contract {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            db.execSQL(MovieContentProvider.SQL_CREATE_MOVIE);
             db.execSQL(WatchlistContentProvider.SQL_CREATE_WATCHLIST);
 
         }
