@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.fsu.cs.mobile.watchnext">
+    <permission android:name="edu.fsu.cs.mobile.permission.READ_PERMISSION" />
+    <permission android:name="edu.fsu.cs.mobile.permission.WRITE_PERMISSION" />
 
     <application
         android:allowBackup="true"

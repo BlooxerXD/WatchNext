@@ -14,29 +14,13 @@
         tools:layout_editor_absoluteY="37dp">
 
         <TextView
-            android:id="@+id/MovieName"
+            android:id="@+id/watch_list_item_view"
             android:layout_width="match_parent"
             android:layout_height="98dp"
-            android:text="Watch List"
+            android:text="Name"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="122dp"
-            android:clickable="true"
-            android:text="Watched"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_add" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
