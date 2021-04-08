@@ -84,10 +84,8 @@ public class Contract {
                 null,
                 null,
                 null);
-        while(mCursor.isAfterLast()){
+        while(mCursor.moveToNext()){
             array.add(mCursor.getString(mCursor.getColumnIndex(WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME))); //add the item
-            mCursor.moveToNext();
-
         }
         mCursor.close();
         return array;
