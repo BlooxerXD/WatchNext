@@ -70,18 +70,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 name = input.getText().toString();
                 /* Add item to the list */
-                watchListNames.add(name);
+
                 adapter.notifyDataSetChanged();
 
                 /*input new list name into the database */
-
-                ContentValues mNewValues = new ContentValues();
-                mNewValues.put(WatchlistContentProvider.TW_COLUMN_WATCHLISTNAME,name);
-                getContentResolver().insert(Uri.parse(String.valueOf(WatchlistContentProvider.CONTENT_URI)), mNewValues);
-
-
-
-                Toast.makeText(MainActivity.this, "item added", Toast.LENGTH_SHORT).show();
+                if(myContract.addNewWatchlist(getApplicationContext(),name))
+                    watchListNames.add(name);
             }
         }).create();
 
