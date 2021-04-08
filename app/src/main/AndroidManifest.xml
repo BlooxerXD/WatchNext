@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.fsu.cs.mobile.watchnext">
+
     <permission android:name="edu.fsu.cs.mobile.permission.READ_PERMISSION" />
     <permission android:name="edu.fsu.cs.mobile.permission.WRITE_PERMISSION" />
 
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchNextMobile">
+        <activity android:name=".TvMovieActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +22,11 @@
         </activity>
 
         <provider
-            android:name="edu.fsu.cs.mobile.watchnext.MovieContentProvider"
+            android:name=".MovieContentProvider"
             android:authorities="@string/authority"
             android:exported="true"
             android:readPermission="edu.fsu.cs.mobile.permission.READ_PERMISSION"
-            android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION"/>
+            android:writePermission="edu.fsu.cs.mobile.permission.WRITE_PERMISSION" />
     </application>
 
 </manifest>

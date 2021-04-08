@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -14,12 +15,11 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class WatchList extends ArrayAdapter<String> implements View.OnClickListener {
+public class WatchList extends ArrayAdapter<String> implements AdapterView.OnItemClickListener {
 
     //List of the watchlist
 
     List<String> watchList;
-
     Context context;
 
     int resource;
@@ -49,10 +49,8 @@ public class WatchList extends ArrayAdapter<String> implements View.OnClickListe
 
     }
 
-
     @Override
-    public void onClick(View v) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
-
 }

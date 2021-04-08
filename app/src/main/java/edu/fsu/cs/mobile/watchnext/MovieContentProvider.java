@@ -57,7 +57,7 @@ public class MovieContentProvider extends ContentProvider {
     public static final String SQL_CREATE_MOVIE = "CREATE TABLE " +
             TABLE_MOVIE +
             "(" +
-            TM_COLUMN_TITLE   + " PRIMARY KEY TEXT,"+
+            TM_COLUMN_TITLE   + " TEXT PRIMARY KEY,"+
             TM_COLUMN_DESC    + " TEXT,"+
             TM_COLUMN_AVALI   + " TEXT,"+
             TM_COLUMN_WATCHNAME + " TEXT,"+

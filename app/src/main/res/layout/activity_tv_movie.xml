@@ -7,18 +7,18 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/list_view"
+            android:id="@+id/list_view_tv"
             android:layout_width="wrap_content"
-            android:layout_height="391dp">
+            android:layout_height="546dp">
 
         </ListView>
 
         <Button
-            android:id="@+id/Add_To_List"
+            android:id="@+id/add_tv_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/list_view"
