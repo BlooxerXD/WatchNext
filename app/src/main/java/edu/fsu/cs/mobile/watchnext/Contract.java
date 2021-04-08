@@ -108,9 +108,94 @@ public class Contract {
     /////////////// MOVIE/TV SECTION
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    public boolean MovieExist(Context context, String watchlist_name, String title){
+        mProjection = new String[]{
+                MovieContentProvider.TM_COLUMN_TITLE
+        };
+
+
+        mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME +" = ? AND "+
+                           MovieContentProvider.TM_COLUMN_TITLE +" = ?";
+
+        mSelectionArgs = new String[] { watchlist_name, title };
+
+        mCursor = context.getContentResolver().query(
+                WatchlistContentProvider.CONTENT_URI,
+                mProjection,
+                mSelectionClause,
+                mSelectionArgs,
+                null);
+
+
+        return mCursor.getCount() != 0;
+        // If name Exist return True
+        //Else Return False
+
+    }
+
+
+    public boolean addNewMovie(Context context,
+                               String watchlist_name,
+                               String title,
+                               String desc,
+                               String avalib,
+                               String imdb,
+                               String notes,
+                               String type){
+        if(!MovieExist(context,watchlist_name,title)){
+            ContentValues values = new ContentValues();
+            values.put(MovieContentProvider.TM_COLUMN_TITLE,CleanString(title));
+            values.put(MovieContentProvider.TM_COLUMN_DESC,CleanString(desc));
+            values.put(MovieContentProvider.TM_COLUMN_AVALI,CleanString(avalib));
+            values.put(MovieContentProvider.TM_COLUMN_WATCHNAME,CleanString(watchlist_name));
+            values.put(MovieContentProvider.TM_COLUMN_TYPE,CleanString(type));
+            values.put(MovieContentProvider.TM_COLUMN_IMDB,CleanString(imdb));
+            values.put(MovieContentProvider.TM_COLUMN_NOTES,CleanString(notes));
+
+            context.getContentResolver().insert(MovieContentProvider.CONTENT_URI,values);
+            Toast.makeText(context, "Movie Added to "+watchlist_name+"!", Toast.LENGTH_SHORT).show();
+
+
+            return true;
+        }else{
+            return false;
+        }
 
 
 
+    }
+
+
+    public ArrayList<String> getMovieNames(Context context, String watchlist_name){
+        ArrayList<String> array = new ArrayList<String>();
+        mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME + " = ? ";
+        mSelectionArgs = new String[]{watchlist_name};
+
+        mProjection = new String[]{
+                MovieContentProvider.TM_COLUMN_TITLE
+        };
+
+
+        mCursor = context.getContentResolver().query(
+                MovieContentProvider.CONTENT_URI,
+                mProjection,
+                mSelectionClause,
+                mSelectionArgs,
+                null);
+        while(mCursor.moveToNext()){
+            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_TITLE))); //add the item
+
+        }
+        mCursor.close();
+
+        return array;
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////// DB Helper SECTION
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     protected static final class MainDatabaseHelper extends SQLiteOpenHelper {
         MainDatabaseHelper(Context context) {
             super(context, WatchlistContentProvider.DBNAME, null, 1);

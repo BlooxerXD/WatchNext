@@ -24,10 +24,11 @@ public class MovieContentProvider extends ContentProvider {
 
 
     public static final String TABLE_MOVIE = "movie";
+
     public static final String TM_COLUMN_TITLE = "title";
     public static final String TM_COLUMN_DESC = "description";
     public static final String TM_COLUMN_AVALI = "availability";
-    public static final String TM_COLUMN_WATCHID = "id";
+    public static final String TM_COLUMN_WATCHNAME = "watchlistname";
     public static final String TM_COLUMN_IMDB = "imdb";
     public static final String TM_COLUMN_NOTES = "notes";
     public static final String TM_COLUMN_TYPE = "type";
@@ -59,7 +60,7 @@ public class MovieContentProvider extends ContentProvider {
             TM_COLUMN_TITLE   + " TEXT PRIMARY KEY,"+
             TM_COLUMN_DESC    + " TEXT,"+
             TM_COLUMN_AVALI   + " TEXT,"+
-            TM_COLUMN_WATCHID + " TEXT,"+
+            TM_COLUMN_WATCHNAME + " TEXT,"+
             TM_COLUMN_TYPE    + " TEXT,"+
             TM_COLUMN_IMDB    + " TEXT,"+
             TM_COLUMN_NOTES   + " TEXT)";
