@@ -41,7 +41,7 @@ public class TV_Movie_List extends ArrayAdapter<String> implements AdapterView.O
 
         String item = tvMovieWatchList.get(position);
 
-        TextView textview = view.findViewById(R.id.watch_list_item_view);
+        TextView textview = view.findViewById(R.id.tv_movie_name_text_view);
         textview.setText(item);
 
         return view;

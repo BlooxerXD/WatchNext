@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WatchNextMobile">
-        <activity android:name=".TvMovieActivity"></activity>
+        <activity android:name=".TvMovieMain"></activity>
+        <activity android:name=".TvMovieActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

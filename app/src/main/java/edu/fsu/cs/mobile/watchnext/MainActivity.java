@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -56,6 +58,29 @@ public class MainActivity extends AppCompatActivity {
     });
          adapter = new WatchList(this, R.layout.watch_list_item, watchListNames);
         listView.setAdapter(adapter);
+
+      listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+              String item = watchListNames.get(position);
+
+//              Bundle bundle = new Bundle();
+//              bundle.putString("wLName",item);
+
+              Intent intent = new Intent(MainActivity.this, TvMovieMain.class);
+              intent.putExtra("watchlistname",item);
+              startActivity(intent);
+
+
+          }
+      });
+
+
+
+
+
+
     }
 
     public void openDialoge (){
