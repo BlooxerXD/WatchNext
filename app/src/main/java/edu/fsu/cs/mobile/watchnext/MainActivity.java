@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
               String item = watchListNames.get(position);
 
-//              Bundle bundle = new Bundle();
-//              bundle.putString("wLName",item);
 
               Intent intent = new Intent(MainActivity.this, TvMovieMain.class);
               intent.putExtra("watchlistname",item);

@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -26,11 +27,18 @@ public class TvMovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_movie);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new TvMovieForm() );
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+        String wName = getIntent().getStringExtra("wName");
+
+        Bundle bundle = new Bundle();
+        bundle.putString("wName",wName);
+        TvMovieForm tvMovieForm = new TvMovieForm();
+        tvMovieForm.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, tvMovieForm );
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 

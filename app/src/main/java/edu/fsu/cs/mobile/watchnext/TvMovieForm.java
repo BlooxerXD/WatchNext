@@ -2,6 +2,7 @@ package edu.fsu.cs.mobile.watchnext;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -23,7 +24,7 @@ public class TvMovieForm extends Fragment {
     EditText nameText,descriptionText,avalText,typeText,imbdText, notesText;
     String name, description, availability, wName, type, imbd, notes;
     Button submit;
-    Contract myContract = new Contract();
+    Contract myContract;
 
     public TvMovieForm(){}
 
@@ -36,6 +37,9 @@ public class TvMovieForm extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tv_movie_form, container, false);
+        myContract= new Contract();
+
+        wName = getArguments().getString("wName");
 
         nameView = (TextView) view.findViewById(R.id.Tv_Movie_Name);
         nameText = (EditText) view.findViewById(R.id.tv_movie_name_text);
@@ -48,6 +52,7 @@ public class TvMovieForm extends Fragment {
 
         watchlistnameView = (TextView) view.findViewById(R.id.watchlist_name_movie);
         watchlistnameText = (TextView) view.findViewById(R.id.watchList_name_display);
+        watchlistnameText.setText(wName);
 
         typeView = (TextView) view.findViewById(R.id.type);
         typeText = (EditText) view.findViewById(R.id.movietvtype_text);
@@ -63,11 +68,12 @@ public class TvMovieForm extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 boolean flag = true;
                 name = nameText.getText().toString();
                 description = descriptionText.getText().toString();
                 availability = avalText.getText().toString();
-                wName = watchlistnameText.getText().toString();
+//                wName = watchlistnameText.getText().toString();
                 type = typeText.getText().toString();
                 imbd = imbdText.getText().toString();
                 notes = notesText.getText().toString();

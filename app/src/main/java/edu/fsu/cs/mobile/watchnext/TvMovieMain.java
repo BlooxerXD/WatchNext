@@ -40,6 +40,7 @@ public class TvMovieMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TvMovieMain.this, TvMovieActivity.class);
+                intent.putExtra("wName",wName);
                 startActivity(intent);
             }
         });
