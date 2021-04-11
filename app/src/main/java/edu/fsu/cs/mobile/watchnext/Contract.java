@@ -120,7 +120,7 @@ public class Contract {
         mSelectionArgs = new String[] { watchlist_name, title };
 
         mCursor = context.getContentResolver().query(
-                WatchlistContentProvider.CONTENT_URI,
+                MovieContentProvider.CONTENT_URI,
                 mProjection,
                 mSelectionClause,
                 mSelectionArgs,
