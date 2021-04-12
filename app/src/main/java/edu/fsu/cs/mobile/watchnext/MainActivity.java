@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
     });
          adapter = new WatchList(this, R.layout.watch_list_item, watchListNames);
+       adapter.notifyDataSetChanged();
          listView.setAdapter(adapter);
 
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
     public void openDialoge (){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
-        builder.setTitle("Add a Watch List");
-        builder.setMessage("Please add the tile of your WatchList");
+        builder.setTitle("Add/Delete Watchlist");
+        builder.setMessage("Please select the tile of your WatchList that you'd like to add/delete");
         builder.setView(input);
 
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -88,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
                 /*input new list name into the database */
                 if(myContract.addNewWatchlist(getApplicationContext(),name))
                     watchListNames.add(name);
+            }
+        }).create();
+
+        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                name = input.getText().toString();
+                myContract.deleteWatchList(getApplicationContext(),name);
+
+                for(int i = 0; i < watchListNames.size();i++){
+                    if( watchListNames.get(i).toString().equals(name)){
+                        watchListNames.remove(i);
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
             }
         }).create();
 

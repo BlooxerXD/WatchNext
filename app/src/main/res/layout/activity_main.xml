@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/list_view"
-            android:text="Add" />
+            android:text="Modify WatchLists" />
     </LinearLayout>
 
 </LinearLayout>
