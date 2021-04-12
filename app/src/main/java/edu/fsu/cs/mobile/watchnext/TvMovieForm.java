@@ -108,7 +108,7 @@ public class TvMovieForm extends Fragment {
 
                 if(flag){
                     myContract.addNewMovie(getActivity(),wName,name,description,availability,imbd,notes,type);
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    Intent intent = new Intent(getActivity(), TvMovieMain.class);
 
                     startActivity(intent);
                 }

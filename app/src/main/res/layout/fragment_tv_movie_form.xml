@@ -101,8 +101,11 @@
         <TextView
             android:id="@+id/watchList_name_display"
             android:layout_width="wrap_content"
-            android:layout_height="34dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

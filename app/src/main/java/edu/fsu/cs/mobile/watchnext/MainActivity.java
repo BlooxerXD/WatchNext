@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button add;
     public static List<String> watchListNames;
     String name;
+    public static  String v2;
     public static ListView listView;
     boolean flag = false;
     WatchList adapter;
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
               String item = watchListNames.get(position);
+
+              v2= item;
+              Intent intent3 = new Intent(MainActivity.this,MovieDisplayActivity.class);
+              intent3.putExtra("w1",v2);
 
               Intent intent = new Intent(MainActivity.this, TvMovieMain.class);
               intent.putExtra("watchlistname",item);

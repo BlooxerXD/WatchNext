@@ -7,9 +7,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.ArrayList;
 
 public class TvMovieMain extends AppCompatActivity {
@@ -17,6 +19,7 @@ public class TvMovieMain extends AppCompatActivity {
     ArrayList<String> list;
     TV_Movie_List adapter;
     ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,17 @@ public class TvMovieMain extends AppCompatActivity {
         Intent intent = getIntent();
         list = new ArrayList<String>();
 
+
         String wName = intent.getStringExtra("watchlistname");
+
+        Intent intent2 = new Intent(TvMovieMain.this, MovieDisplayActivity.class);
+
+        if(wName != null)
+            intent2.putExtra("wlname",wName);
+
+        if(wName == null)
+            wName = MainActivity.v2;
+
 
         if(  myContract.getMovieNames(this,wName).size() <= 0 ) {
             //DISPLAY EMPTY LIST
@@ -42,13 +55,32 @@ public class TvMovieMain extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String item = list.get(position);
+
+                Intent intent1 = new Intent(TvMovieMain.this, MovieDisplayActivity.class);
+                intent1.putExtra("title", item);
+
+                startActivity(intent1);
+            }
+        });
+
         Button add;
         add = findViewById(R.id.Add_To_List_movie_tv);
+
+        String finalWName = wName;
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(TvMovieMain.this, TvMovieActivity.class);
-                intent.putExtra("wName",wName);
+
+                intent.putExtra("wName", finalWName);
+
                 startActivity(intent);
             }
         });

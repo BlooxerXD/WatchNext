@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Movie;
+import android.util.Log;
 import android.widget.CursorAdapter;
 import android.widget.Toast;
 
@@ -54,6 +56,7 @@ public class Contract {
     private String CleanString(String str){
         return str.trim();
     }
+
 
 
     public boolean addNewWatchlist(Context context, String watchlist_name){
@@ -126,13 +129,40 @@ public class Contract {
                 mSelectionArgs,
                 null);
 
-
         return mCursor.getCount() != 0;
         // If name Exist return True
         //Else Return False
 
     }
 
+    public ArrayList<String> movieInfo(Context context,String watchlist_name,String title){
+        ArrayList<String> array = new ArrayList<String>();
+        mProjection = new String[]{
+          MovieContentProvider.TM_COLUMN_TITLE,MovieContentProvider.TM_COLUMN_DESC,MovieContentProvider.TM_COLUMN_AVALI,MovieContentProvider.TM_COLUMN_IMDB
+        };
+
+        mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME +" = ? AND "+
+                MovieContentProvider.TM_COLUMN_TITLE +" = ?";
+
+        mSelectionArgs = new String[] { watchlist_name, title };
+
+        mCursor = context.getContentResolver().query(
+                MovieContentProvider.CONTENT_URI,
+                mProjection,
+                mSelectionClause,
+                mSelectionArgs,
+                null);
+
+        while(mCursor.moveToNext()){
+            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_TITLE))); //add the item
+            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_DESC)));
+            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_AVALI)));
+            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_IMDB)));
+        }
+
+
+        return array;
+    }
 
     public boolean addNewMovie(Context context,
                                String watchlist_name,
