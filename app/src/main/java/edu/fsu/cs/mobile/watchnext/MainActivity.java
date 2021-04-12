@@ -57,27 +57,18 @@ public class MainActivity extends AppCompatActivity {
             }
     });
          adapter = new WatchList(this, R.layout.watch_list_item, watchListNames);
-        listView.setAdapter(adapter);
+         listView.setAdapter(adapter);
 
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
               String item = watchListNames.get(position);
-
 
               Intent intent = new Intent(MainActivity.this, TvMovieMain.class);
               intent.putExtra("watchlistname",item);
               startActivity(intent);
-
-
           }
       });
-
-
-
-
-
 
     }
 
@@ -93,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 name = input.getText().toString();
                 /* Add item to the list */
-
                 adapter.notifyDataSetChanged();
-
                 /*input new list name into the database */
                 if(myContract.addNewWatchlist(getApplicationContext(),name))
                     watchListNames.add(name);

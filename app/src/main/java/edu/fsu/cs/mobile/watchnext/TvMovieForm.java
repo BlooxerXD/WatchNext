@@ -108,6 +108,9 @@ public class TvMovieForm extends Fragment {
 
                 if(flag){
                     myContract.addNewMovie(getActivity(),wName,name,description,availability,imbd,notes,type);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getActivity(), "Please enter correct information to add a new movie.", Toast.LENGTH_SHORT).show();
