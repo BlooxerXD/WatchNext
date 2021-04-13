@@ -27,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Contract myContract;
     Button add;
+    public static final String WATCHLIST_TAG = "watchlistname";
     public static List<String> watchListNames;
     String name;
     public static  String v2;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
               intent3.putExtra("w1",v2);
 
               Intent intent = new Intent(MainActivity.this, TvMovieMain.class);
-              intent.putExtra("watchlistname",item);
+              intent.putExtra(WATCHLIST_TAG,item);
               startActivity(intent);
           }
       });

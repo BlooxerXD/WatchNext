@@ -19,6 +19,7 @@ public class TvMovieMain extends AppCompatActivity {
     ArrayList<String> list;
     TV_Movie_List adapter;
     ListView listView;
+    String wName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class TvMovieMain extends AppCompatActivity {
         list = new ArrayList<String>();
 
 
-        String wName = intent.getStringExtra("watchlistname");
+        wName = intent.getStringExtra(MainActivity.WATCHLIST_TAG);
 
         Intent intent2 = new Intent(TvMovieMain.this, MovieDisplayActivity.class);
 
@@ -49,7 +50,7 @@ public class TvMovieMain extends AppCompatActivity {
             }
         }
 
-        adapter = new TV_Movie_List(this, R.layout.tv_movie_list_item, list);
+        adapter = new TV_Movie_List(this, R.layout.tv_movie_list_item, list,wName);
 
         listView = (ListView) findViewById(R.id.list_view2);
         listView.setAdapter(adapter);
@@ -63,6 +64,7 @@ public class TvMovieMain extends AppCompatActivity {
 
                 Intent intent1 = new Intent(TvMovieMain.this, MovieDisplayActivity.class);
                 intent1.putExtra("title", item);
+                intent1.putExtra(MainActivity.WATCHLIST_TAG,wName);
 
                 startActivity(intent1);
             }

@@ -1,7 +1,6 @@
 package edu.fsu.cs.mobile.watchnext;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,17 +24,17 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class TvMovieForm extends Fragment {
-    TextView nameView,descriptionView,avaiabilityView,watchlistnameView,watchlistnameText,typeView,imbdView,notesView;
-    EditText nameText,descriptionText,avalText,typeText,imbdText, notesText;
-    String name, description, availability, wName, type, imbd, notes;
+    TextView nameView,avaiabilityView,watchlistnameView,watchlistnameText,notesView;
+    EditText nameText,avalText, notesText;
+    String name, availability, wName, type, notes;
     Button submit,search_btn;
     Contract myContract;
     Spinner search;
-
+    JSONArray search_array;
+    ArrayList<String> titles;
     public TvMovieForm(){}
 
 
@@ -55,8 +53,6 @@ public class TvMovieForm extends Fragment {
         nameView = (TextView) view.findViewById(R.id.Tv_Movie_Name);
         nameText = (EditText) view.findViewById(R.id.tv_movie_name_text);
 
-        descriptionView = (TextView) view.findViewById(R.id.Description);
-        descriptionText = (EditText) view.findViewById(R.id.description_text);
 
         avaiabilityView = (TextView) view.findViewById(R.id.availability);
         avalText = (EditText) view.findViewById(R.id.location);
@@ -65,11 +61,7 @@ public class TvMovieForm extends Fragment {
         watchlistnameText = (TextView) view.findViewById(R.id.watchList_name_display);
         watchlistnameText.setText(wName);
 
-        typeView = (TextView) view.findViewById(R.id.type);
-        typeText = (EditText) view.findViewById(R.id.movietvtype_text);
 
-        imbdView = (TextView) view.findViewById(R.id.imbd);
-        imbdText = (EditText) view.findViewById(R.id.link_text);
 
         notesView = (TextView) view.findViewById(R.id.Notes);
         notesText = (EditText) view.findViewById(R.id.notes_text);
@@ -78,25 +70,34 @@ public class TvMovieForm extends Fragment {
 
         search = (Spinner)view.findViewById(R.id.spinner2);
         search_btn = (Button)view.findViewById(R.id.search_btn);
+        titles = new ArrayList<String>();
 
-        search.setOnClickListener(new View.OnClickListener() {
+        search_btn.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
                                           name = nameText.getText().toString();
                                           try {
-                                              JSONArray array = IMDBapi.SearchTitle(name);
-                                              ArrayList<String> titles = new ArrayList<String>();
-                                              titles.add("Select Searched Title");
-                                              for (int i = 0; i < array.length(); i++) {
-                                                  JSONObject object     = array.getJSONObject(i);
-                                                  titles.add(object.getString("Title"));
+                                              search_array = IMDBapi.SearchTitle(name);
+                                              titles.clear();
+                                              if(search_array !=null) {
+
+                                                  titles.add("Select Searched Title");
+                                                  for (int i = 0; i < search_array.length(); i++) {
+                                                      JSONObject object = search_array.getJSONObject(i);
+                                                      titles.add(object.getString("Title"));
+                                                  }
+                                              }else{
+
+
+                                                  titles.add("No Search terms Found");
+
                                               }
 
-                                              ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,titles);
-                                              // Specify the layout to use when the list of choices appears
-                                              adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                                              // Apply the adapter to the spinner
-                                              search.setAdapter(adapter);
+                                                  ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, titles);
+                                                  // Specify the layout to use when the list of choices appears
+                                                  adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                                                  // Apply the adapter to the spinner
+                                                  search.setAdapter(adapter);
 
                                           } catch (IOException | JSONException e) {
                                               e.printStackTrace();
@@ -107,71 +108,26 @@ public class TvMovieForm extends Fragment {
 
 
 
-//        View.OnTouchListener spinnerOnTouch = new View.OnTouchListener() {
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    //Your code
-//                    name = nameText.getText().toString();
-//                    try {
-//                        JSONArray array = IMDBapi.SearchTitle(name);
-//                        ArrayList<String> titles = new ArrayList<String>();
-//                        titles.add("Select Searched Title");
-//                        for (int i = 0; i < array.length(); i++) {
-//                            JSONObject object     = array.getJSONObject(i);
-//                            titles.add(object.getString("Title"));
-//                        }
-//
-//                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,titles);
-//                        // Specify the layout to use when the list of choices appears
-//                        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-//                        // Apply the adapter to the spinner
-//                        search.setAdapter(adapter);
-//                        return true;
-//
-//                    } catch (IOException | JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//                return false;
-//            }
-//        };
-//
-//        search.setOnTouchListener(spinnerOnTouch);
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 boolean flag = true;
-                name = nameText.getText().toString();
-                description = descriptionText.getText().toString();
+                name = search.getSelectedItem().toString();
                 availability = avalText.getText().toString();
-//                wName = watchlistnameText.getText().toString();
-                type = typeText.getText().toString();
-                imbd = imbdText.getText().toString();
+
                 notes = notesText.getText().toString();
+                String imdbnum = "";
 
-                if (name == null) {
-                    nameView.setTextColor(Color.RED);
-                    name = "";
-                    flag = false;
-                }
+//                if (name == null) {
+//                    nameView.setTextColor(Color.RED);
+//                    name = "";
+//                    flag = false;
+//                }
 
-                if (description == null) {
-                    flag = false;
-                }
+
 
                 if (availability == null) {
-                    flag = false;
-                }
-
-                if (type == null) {
-                    flag = false;
-                }
-
-
-                if (imbd == null) {
                     flag = false;
                 }
 
@@ -180,8 +136,20 @@ public class TvMovieForm extends Fragment {
                     flag = false;
                 }
 
+                if(search == null || search.getSelectedItem().toString().equals("Select Searched Title") ||search.getSelectedItem().toString().equals("No Search terms Found")){
+                    flag = false;
+                }else{
+                    try {
+                        imdbnum = search_array.getJSONObject(search.getSelectedItemPosition()-1).getString("imdbID");
+                        IMDBapi.GetIMDBEntry(imdbnum);
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 if(flag){
-                    myContract.addNewMovie(getActivity(),wName,name,description,availability,imbd,notes,type);
+                    myContract.addNewMovie(getActivity(),wName,name,availability,imdbnum,notes);
                     Intent intent = new Intent(getActivity(), TvMovieMain.class);
 
                     startActivity(intent);
@@ -189,6 +157,8 @@ public class TvMovieForm extends Fragment {
                 else{
                     Toast.makeText(getActivity(), "Please enter correct information to add a new movie.", Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
 

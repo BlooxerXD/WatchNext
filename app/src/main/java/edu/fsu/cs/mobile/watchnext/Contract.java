@@ -138,7 +138,10 @@ public class Contract {
     public ArrayList<String> movieInfo(Context context,String watchlist_name,String title){
         ArrayList<String> array = new ArrayList<String>();
         mProjection = new String[]{
-          MovieContentProvider.TM_COLUMN_TITLE,MovieContentProvider.TM_COLUMN_DESC,MovieContentProvider.TM_COLUMN_AVALI,MovieContentProvider.TM_COLUMN_IMDB
+                MovieContentProvider.TM_COLUMN_TITLE,
+               // MovieContentProvider.TM_COLUMN_DESC,
+                MovieContentProvider.TM_COLUMN_AVALI,
+                MovieContentProvider.TM_COLUMN_IMDB
         };
 
         mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME +" = ? AND "+
@@ -155,7 +158,7 @@ public class Contract {
 
         while(mCursor.moveToNext()){
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_TITLE))); //add the item
-            array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_DESC)));
+            //array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_DESC)));
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_AVALI)));
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_IMDB)));
         }
@@ -167,18 +170,16 @@ public class Contract {
     public boolean addNewMovie(Context context,
                                String watchlist_name,
                                String title,
-                               String desc,
                                String avalib,
                                String imdb,
-                               String notes,
-                               String type){
+                               String notes){
         if(!MovieExist(context,watchlist_name,title)){
             ContentValues values = new ContentValues();
             values.put(MovieContentProvider.TM_COLUMN_TITLE,CleanString(title));
-            values.put(MovieContentProvider.TM_COLUMN_DESC,CleanString(desc));
+//            values.put(MovieContentProvider.TM_COLUMN_DESC,CleanString(desc));
             values.put(MovieContentProvider.TM_COLUMN_AVALI,CleanString(avalib));
             values.put(MovieContentProvider.TM_COLUMN_WATCHNAME,CleanString(watchlist_name));
-            values.put(MovieContentProvider.TM_COLUMN_TYPE,CleanString(type));
+//            values.put(MovieContentProvider.TM_COLUMN_TYPE,CleanString(type));
             values.put(MovieContentProvider.TM_COLUMN_IMDB,CleanString(imdb));
             values.put(MovieContentProvider.TM_COLUMN_NOTES,CleanString(notes));
 
@@ -192,6 +193,27 @@ public class Contract {
         }
 
 
+
+    }
+
+    public String getImdbID(Context context, String watchlist_name, String movie_name){
+        mProjection = new String[]{
+                MovieContentProvider.TM_COLUMN_IMDB
+        };
+
+        mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME +" = ? AND "+
+                MovieContentProvider.TM_COLUMN_TITLE +" = ?";
+
+        mSelectionArgs = new String[] { watchlist_name, movie_name };
+
+        mCursor = context.getContentResolver().query(
+                MovieContentProvider.CONTENT_URI,
+                mProjection,
+                mSelectionClause,
+                mSelectionArgs,
+                null);
+        mCursor.moveToNext();
+            return mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_IMDB));
 
     }
 

@@ -26,7 +26,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/display1"
+                android:id="@+id/m_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -49,7 +49,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/display2"
+                android:id="@+id/m_plot"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/display3"
+                android:id="@+id/m_avalib"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -89,16 +89,16 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/movie_display_imbd"
+                android:id="@+id/movie_display_type"
                 android:layout_width="64dp"
                 android:layout_height="201dp"
                 android:layout_weight="1"
-                android:text="IMBD Link"
+                android:text="Type"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/display4"
+                android:id="@+id/m_type"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

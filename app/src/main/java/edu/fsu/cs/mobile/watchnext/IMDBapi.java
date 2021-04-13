@@ -21,8 +21,77 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class IMDBapi {
+    public static final String TITLE = "Title";
+    public static final String YEAR = "Year";
+    public static final String RATED = "Rated";
+    public static final String RELEASED = "Released";
+    public static final String RUNTIME = "Runtime";
+    public static final String GENRE = "Genre";
+    public static final String DIRECTOR = "Director";
+
+    public static final String PLOT = "Plot";
+    public static final String IMDBRATING = "imdbRating";
+    public static final String METASCORE = "Metascore";
+    public static final String TYPE = "Type";
+    public static final String MONEY = "BoxOffice";
+    public static final String POSTER = "Poster";
+
+    public static final String ERROR_STR = "Not Found";
+
+    public static String getImdbrating(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(IMDBRATING);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
+    public static String getPlot(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(PLOT);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
+    public static String getPoster(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(POSTER);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
     public static String convertToAPI(String str) throws UnsupportedEncodingException {
         return URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
+    }
+
+    static public JSONObject GetIMDBEntry(String imdbID)throws IOException{
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://movie-database-imdb-alternative.p.rapidapi.com/?i="+imdbID+"&r=json")
+                .get()
+                .addHeader("x-rapidapi-key", "7b6b9ec86cmshdf7cb8756356c67p1e126djsnb25c389a6f8a")
+                .addHeader("x-rapidapi-host", "movie-database-imdb-alternative.p.rapidapi.com")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseStr = response.body().string();
+        JSONObject Jobject = null;
+
+        try {
+            Jobject = new JSONObject(responseStr);
+            return Jobject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+
     }
 
     static public JSONArray SearchTitle(String search)throws IOException{
@@ -46,10 +115,6 @@ public class IMDBapi {
         try {
             Jobject = new JSONObject(responseStr);
             JSONArray Jarray = Jobject.getJSONArray("Search");
-//            for (int i = 0; i < Jarray.length(); i++) {
-//                JSONObject object     = Jarray.getJSONObject(i);
-//                titles.add(object.getString("Title"));
-//            }
             return Jarray;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -88,52 +153,10 @@ public class IMDBapi {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-//        final List<String>[] t = new List[]{new ArrayList<String>()};
-//
-//
-//        Callback callback = new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.v("RESPONSE","RESPONSE FAILED");
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                if (response.isSuccessful()) {
-//                    String responseStr = response.body().string();
-//                    try {
-//                        JSONObject Jobject = new JSONObject(responseStr);
-//                        JSONArray Jarray = Jobject.getJSONArray("Search");
-//                        List<String> titles = new ArrayList<String>();
-//                        for (int i = 0; i < Jarray.length(); i++) {
-//                            JSONObject object     = Jarray.getJSONObject(i);
-//                            titles.add(object.getString("Title"));
-//                        }
-//                        t[0] = titles;
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    // Do what you want to do with the response.
-//                    Log.v("RESPONSE",responseStr);
-//                } else {
-//                    Log.v("RESPONSE","RESPONSE FAILED");
-//
-//                    // Request not successful
-//                }
-//            }
-//        };
-
-       // call.enqueue(callback);
-
-
-
         return true;
 
     }
+
 
 
 }
