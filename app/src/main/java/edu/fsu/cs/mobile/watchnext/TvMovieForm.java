@@ -13,18 +13,29 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TvMovieForm extends Fragment {
     TextView nameView,descriptionView,avaiabilityView,watchlistnameView,watchlistnameText,typeView,imbdView,notesView;
     EditText nameText,descriptionText,avalText,typeText,imbdText, notesText;
     String name, description, availability, wName, type, imbd, notes;
-    Button submit;
+    Button submit,search_btn;
     Contract myContract;
+    Spinner search;
 
     public TvMovieForm(){}
 
@@ -64,6 +75,69 @@ public class TvMovieForm extends Fragment {
         notesText = (EditText) view.findViewById(R.id.notes_text);
 
         submit = (Button)view.findViewById(R.id.sub);
+
+        search = (Spinner)view.findViewById(R.id.spinner2);
+        search_btn = (Button)view.findViewById(R.id.search_btn);
+
+        search.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          name = nameText.getText().toString();
+                                          try {
+                                              JSONArray array = IMDBapi.SearchTitle(name);
+                                              ArrayList<String> titles = new ArrayList<String>();
+                                              titles.add("Select Searched Title");
+                                              for (int i = 0; i < array.length(); i++) {
+                                                  JSONObject object     = array.getJSONObject(i);
+                                                  titles.add(object.getString("Title"));
+                                              }
+
+                                              ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,titles);
+                                              // Specify the layout to use when the list of choices appears
+                                              adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                                              // Apply the adapter to the spinner
+                                              search.setAdapter(adapter);
+
+                                          } catch (IOException | JSONException e) {
+                                              e.printStackTrace();
+                                          }
+                                      }
+                                  }
+        );
+
+
+
+//        View.OnTouchListener spinnerOnTouch = new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    //Your code
+//                    name = nameText.getText().toString();
+//                    try {
+//                        JSONArray array = IMDBapi.SearchTitle(name);
+//                        ArrayList<String> titles = new ArrayList<String>();
+//                        titles.add("Select Searched Title");
+//                        for (int i = 0; i < array.length(); i++) {
+//                            JSONObject object     = array.getJSONObject(i);
+//                            titles.add(object.getString("Title"));
+//                        }
+//
+//                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,titles);
+//                        // Specify the layout to use when the list of choices appears
+//                        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+//                        // Apply the adapter to the spinner
+//                        search.setAdapter(adapter);
+//                        return true;
+//
+//                    } catch (IOException | JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//                return false;
+//            }
+//        };
+//
+//        search.setOnTouchListener(spinnerOnTouch);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

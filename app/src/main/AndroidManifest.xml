@@ -4,6 +4,10 @@
 
     <permission android:name="edu.fsu.cs.mobile.permission.READ_PERMISSION" />
     <permission android:name="edu.fsu.cs.mobile.permission.WRITE_PERMISSION" />
+    <permission android:name="edu.fsu.cs.mobile.permission.INTERNET" />
+    <permission android:name="edu.fsu.cs.mobile.permission.NETWORK" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

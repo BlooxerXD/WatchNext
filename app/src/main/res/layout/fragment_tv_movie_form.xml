@@ -28,7 +28,6 @@
             android:layout_width="252dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:capitalize="characters"
             android:ems="10"
             tools:ignore="Deprecated" />
         android:text="Employee ID"
@@ -36,6 +35,25 @@
     </LinearLayout>
 
     <!--  2nd Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="search" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
