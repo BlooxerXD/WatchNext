@@ -74,6 +74,15 @@ public class IMDBapi {
         return ERROR_STR;
     }
 
+    public static String getScore(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(METASCORE);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
     public static String getRating(JSONObject imdbEntry) throws JSONException {
         try {
             return imdbEntry.getString(RATED);

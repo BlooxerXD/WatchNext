@@ -3,6 +3,9 @@ package edu.fsu.cs.mobile.watchnext;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -16,6 +19,8 @@ public class MovieDisplayActivity extends AppCompatActivity {
     Contract myContract;
     String watchlistName,title,imdbID;
     TextView title_tv, plot_tv, avalib_tv, type_tv,director,rating;
+    RatingBar ratingBar;
+    String score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +29,15 @@ public class MovieDisplayActivity extends AppCompatActivity {
 
         ArrayList<String> list = new ArrayList<String>();
 
+        ratingBar = findViewById(R.id.ratingBar);
+
         title_tv = findViewById(R.id.m_title);
         plot_tv = findViewById(R.id.m_plot);
         avalib_tv = findViewById(R.id.m_avalib);
         type_tv = findViewById(R.id.m_type);
         director = findViewById(R.id.m_directorText);
         rating = findViewById(R.id.m_pg1);
+
 
 
         watchlistName = getIntent().getStringExtra(MainActivity.WATCHLIST_TAG);
@@ -44,7 +52,8 @@ public class MovieDisplayActivity extends AppCompatActivity {
 
 
 
-        JSONObject imdbEntry = new JSONObject();
+
+                JSONObject imdbEntry = new JSONObject();
 
         try {
             imdbEntry = IMDBapi.GetIMDBEntry(imdbID);
@@ -65,6 +74,30 @@ public class MovieDisplayActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        try {
+            score = (IMDBapi.getScore(imdbEntry));
+
+            if(!score.equals("N/A")){
+            float transfer = Float.parseFloat(score);
+            float finalScore = (float) (( transfer *.2 ) / 5);
+            ratingBar.setRating(finalScore);
+            }
+            else{
+                ratingBar.setRating(0);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ratingBar.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        ratingBar.setFocusable(false);
 
         try {
             type_tv.setText(IMDBapi.getType(imdbEntry));
