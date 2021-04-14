@@ -110,6 +110,24 @@ public class Contract {
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////// MOVIE/TV SECTION
     ///////////////////////////////////////////////////////////////////////////////////////////////
+    public boolean deleteMovie(Context context, String watchlist_name,String movieName){
+
+        if(watchlistnameExist(context, watchlist_name)) {
+            mSelectionClause = MovieContentProvider.TM_COLUMN_WATCHNAME +" = ? AND "+
+                    MovieContentProvider.TM_COLUMN_TITLE +" = ?";
+
+            mSelectionArgs = new String[]{watchlist_name,movieName};
+
+            context.getContentResolver().delete(MovieContentProvider.CONTENT_URI, mSelectionClause, mSelectionArgs);
+
+            Toast.makeText(context, "Movie Deleted!", Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+        Toast.makeText(context, "Movie Delete Failed!", Toast.LENGTH_SHORT).show();
+
+        return false;
+    }
 
     public boolean MovieExist(Context context, String watchlist_name, String title){
         mProjection = new String[]{
@@ -164,6 +182,7 @@ public class Contract {
 
         return array;
     }
+
 
     public boolean addNewMovie(Context context,
                                String watchlist_name,

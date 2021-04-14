@@ -2,7 +2,11 @@ package edu.fsu.cs.mobile.watchnext;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RatingBar;
@@ -116,4 +120,27 @@ public class MovieDisplayActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete:
+                myContract = new Contract();
+
+                myContract.deleteMovie(this,watchlistName,title);
+
+                Intent intent = new Intent(MovieDisplayActivity.this, TvMovieMain.class);
+                startActivity(intent);
+
+                return true;
+        }
+
+        return  true;
+    }
+
 }
