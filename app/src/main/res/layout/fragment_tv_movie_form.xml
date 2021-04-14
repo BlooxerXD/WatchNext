@@ -12,12 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20px">
 
         <TextView
             android:id="@+id/Tv_Movie_Name"
             android:layout_width="161dp"
-            android:layout_height="match_parent"
+            android:layout_height="37dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="25dp"
@@ -39,7 +40,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20px">
 
         <Button
             android:id="@+id/search_btn"
@@ -60,7 +62,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20px">
 
         <TextView
             android:id="@+id/availability"
@@ -85,37 +88,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/Notes"
-            android:layout_width="160dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="25dp"
-            android:text="Notes" />
-
-        <EditText
-            android:id="@+id/notes_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20px">
 
         <TextView
             android:id="@+id/watchlist_name_movie"
             android:layout_width="161dp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="25dp"
@@ -136,7 +116,8 @@
         android:layout_width="match_parent"
         android:layout_height="494dp"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="20px">
 
         <Button
             android:id="@+id/sub"

@@ -29,8 +29,8 @@ import static android.graphics.BlendMode.COLOR;
 
 
 public class TvMovieForm extends Fragment {
-    TextView nameView,avaiabilityView,watchlistnameView,watchlistnameText,notesView;
-    EditText nameText, notesText;
+    TextView nameView,avaiabilityView,watchlistnameView,watchlistnameText;
+    EditText nameText;
     Spinner avalText;
     String name, availability, wName, type, notes;
     Button submit,search_btn;
@@ -68,8 +68,6 @@ public class TvMovieForm extends Fragment {
 
 
 
-        notesView = (TextView) view.findViewById(R.id.Notes);
-        notesText = (EditText) view.findViewById(R.id.notes_text);
 
         submit = (Button)view.findViewById(R.id.sub);
 
@@ -120,8 +118,8 @@ public class TvMovieForm extends Fragment {
                 boolean flag = true;
                 name = search.getSelectedItem().toString();
                 availability = avalText.getSelectedItem().toString();
+                notes = "";
 
-                notes = notesText.getText().toString();
                 String imdbnum = "";
 
                 if (name == null) {
@@ -138,10 +136,10 @@ public class TvMovieForm extends Fragment {
                 }
 
 
-                if (notes == null) {
-                    notesView.setTextColor(Color.RED);
-                    flag = false;
-                }
+//                if (notes == null) {
+//                    notesView.setTextColor(Color.RED);
+//                    flag = false;
+//                }
 
                 if(search == null || search.getSelectedItem().toString().equals("Select Searched Title") ||search.getSelectedItem().toString().equals("No Search terms Found")){
                     flag = false;
