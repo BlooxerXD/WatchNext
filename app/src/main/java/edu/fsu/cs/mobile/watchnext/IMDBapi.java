@@ -56,6 +56,33 @@ public class IMDBapi {
         return ERROR_STR;
     }
 
+    public static String getType(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(TYPE);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
+    public static String getDirector(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(DIRECTOR);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
+    public static String getRating(JSONObject imdbEntry) throws JSONException {
+        try {
+            return imdbEntry.getString(RATED);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ERROR_STR;
+    }
+
     public static String getPoster(JSONObject imdbEntry) throws JSONException {
         try {
             return imdbEntry.getString(POSTER);

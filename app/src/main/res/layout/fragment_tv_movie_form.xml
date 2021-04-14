@@ -1,10 +1,11 @@
-<LinearLayout android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical|fill_vertical"
-    android:layout_marginTop="10dp"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_marginTop="@dimen/box_inset_layout_padding"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!--  1st Child Layout  (Nested In Parent Layout) with Horizontal Orientation -->
 
@@ -16,7 +17,7 @@
         <TextView
             android:id="@+id/Tv_Movie_Name"
             android:layout_width="161dp"
-            android:layout_height="42dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="25dp"
@@ -45,7 +46,8 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="search" />
+            android:text="search"
+            android:textColor="@color/design_default_color_background" />
 
         <Spinner
             android:id="@+id/spinner2"
@@ -69,13 +71,15 @@
             android:layout_marginBottom="25dp"
             android:text="Availability" />
 
-        <EditText
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_ava"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:background="@android:drawable/btn_dropdown"
+            android:backgroundTint="@color/white"
+            android:entries="@array/streaming"
+            android:spinnerMode="dropdown" />/>
 
     </LinearLayout>
 
@@ -111,7 +115,7 @@
         <TextView
             android:id="@+id/watchlist_name_movie"
             android:layout_width="161dp"
-            android:layout_height="35dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="25dp"
@@ -130,7 +134,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="494dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <Button
@@ -139,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Submit"
-            />
+            android:textColor="@color/design_default_color_background" />
 
     </LinearLayout>
 </LinearLayout>

@@ -139,7 +139,6 @@ public class Contract {
         ArrayList<String> array = new ArrayList<String>();
         mProjection = new String[]{
                 MovieContentProvider.TM_COLUMN_TITLE,
-               // MovieContentProvider.TM_COLUMN_DESC,
                 MovieContentProvider.TM_COLUMN_AVALI,
                 MovieContentProvider.TM_COLUMN_IMDB
         };
@@ -158,7 +157,6 @@ public class Contract {
 
         while(mCursor.moveToNext()){
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_TITLE))); //add the item
-            //array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_DESC)));
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_AVALI)));
             array.add(mCursor.getString(mCursor.getColumnIndex(MovieContentProvider.TM_COLUMN_IMDB)));
         }

@@ -25,10 +25,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.graphics.BlendMode.COLOR;
+
 
 public class TvMovieForm extends Fragment {
     TextView nameView,avaiabilityView,watchlistnameView,watchlistnameText,notesView;
-    EditText nameText,avalText, notesText;
+    EditText nameText, notesText;
+    Spinner avalText;
     String name, availability, wName, type, notes;
     Button submit,search_btn;
     Contract myContract;
@@ -55,7 +58,9 @@ public class TvMovieForm extends Fragment {
 
 
         avaiabilityView = (TextView) view.findViewById(R.id.availability);
-        avalText = (EditText) view.findViewById(R.id.location);
+        avalText = (Spinner) view.findViewById(R.id.spinner_ava);
+
+
 
         watchlistnameView = (TextView) view.findViewById(R.id.watchlist_name_movie);
         watchlistnameText = (TextView) view.findViewById(R.id.watchList_name_display);
@@ -114,25 +119,27 @@ public class TvMovieForm extends Fragment {
 
                 boolean flag = true;
                 name = search.getSelectedItem().toString();
-                availability = avalText.getText().toString();
+                availability = avalText.getSelectedItem().toString();
 
                 notes = notesText.getText().toString();
                 String imdbnum = "";
 
-//                if (name == null) {
-//                    nameView.setTextColor(Color.RED);
-//                    name = "";
-//                    flag = false;
-//                }
+                if (name == null) {
+                    nameView.setTextColor(Color.RED);
+                    name = "";
+                    flag = false;
+                }
 
 
 
                 if (availability == null) {
+
                     flag = false;
                 }
 
 
                 if (notes == null) {
+                    notesView.setTextColor(Color.RED);
                     flag = false;
                 }
 
