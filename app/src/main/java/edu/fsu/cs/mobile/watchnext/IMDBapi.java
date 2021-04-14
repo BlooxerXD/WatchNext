@@ -58,7 +58,9 @@ public class IMDBapi {
 
     public static String getType(JSONObject imdbEntry) throws JSONException {
         try {
-            return imdbEntry.getString(TYPE);
+            String type = imdbEntry.getString(TYPE);
+            type = type.substring(0, 1).toUpperCase() + type.substring(1);
+            return type;
         }catch (JSONException e) {
             e.printStackTrace();
         }

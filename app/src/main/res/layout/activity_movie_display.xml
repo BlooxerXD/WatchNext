@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:backgroundTint="#FFFFFF"
     android:padding="@dimen/box_inset_layout_padding"
@@ -12,16 +12,20 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
+        android:padding="20px"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View style="@style/Divider" />
 
         <TextView
             android:id="@+id/Movie_display_title"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
             android:text="Title:"
@@ -33,6 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <View style="@style/Divider" />
 
         <TextView
             android:id="@+id/m_director"
@@ -50,6 +56,8 @@
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+        <View style="@style/Divider" />
+
         <TextView
             android:id="@+id/m_PG"
             android:layout_width="match_parent"
@@ -66,6 +74,8 @@
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+        <View style="@style/Divider" />
+
         <TextView
             android:id="@+id/moive_display_description"
             android:layout_width="match_parent"
@@ -78,7 +88,7 @@
         <ScrollView
             android:id="@+id/SCROLLER_ID"
             android:layout_width="fill_parent"
-            android:layout_height="64dp"
+            android:layout_height="76dp"
             android:fillViewport="true"
             android:scrollbars="vertical">
 
@@ -89,6 +99,8 @@
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </ScrollView>
+        <View style="@style/Divider" />
+
         <TextView
             android:id="@+id/mive_display_avail"
             android:layout_width="match_parent"
@@ -104,6 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <View style="@style/Divider" />
 
         <TextView
             android:id="@+id/movie_display_type"
@@ -121,6 +135,8 @@
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+        <View style="@style/Divider" />
+
         <TextView
             android:id="@+id/m_rating"
             android:layout_width="match_parent"
@@ -136,10 +152,9 @@
             android:layout_height="46dp"
             android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+        <View
+            style="@style/Divider"
+            android:layout_height="7dp" />
 
     </LinearLayout>
 
